@@ -37,6 +37,9 @@ jobs:
     - name: GCP version 
       run: gcloud -v
 
+    - name: GCP login 
+      run: gcloud auth configure-docker europe-west4-docker.pkg.dev
+
     - name: Docker Build
       run: docker buildx build --platform linux/amd64 -t node-app-action:1.0 .
 
