@@ -23,7 +23,7 @@ jobs:
     - id: auth
       uses: google-github-actions/auth@v2.0.0  
       with:
-        workload_identity_provider: 'projects/71512088213/locations/global/workloadIdentityPools/git-wif-new-pool/providers/github'
+        workload_identity_provider: 'projects/71512088213/locations/global/workloadIdentityPools/git-wif-new-pool/providers/github-new'
         service_account: 'git-wif-new-service@my-react-project-97ea7.iam.gserviceaccount.com'
 
     - name: Setup Terraform
