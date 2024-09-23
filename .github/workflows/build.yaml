@@ -8,22 +8,34 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
 
     - name: code checkout
       uses: actions/checkout@v2
 
-    - name: install the gcloud cli
-      uses: google-github-actions/setup-gcloud@v0
+    - id: auth
+      uses: google-github-actions/auth@v2.0.0  
       with:
-        project_id: ${{ secrets.GOOGLE_PROJECT }}
-        service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        export_default_credentials: true
+        workload_identity_provider: 'projects/71512088213/locations/global/workloadIdentityPools/git-wif-pool/providers/github'
+        service_account: 'git-action-deploy@my-react-project-97ea7.iam.gserviceaccount.com'
 
-    - name: build and push docker image
-      env:
-        GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
-      run:
-        gcloud auth configure-docker europe-west4-docker.pkg.dev
-        docker build -t europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-docker-app
-        docker push europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-docker-app
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+
+    - name: Terraform Init
+      run: terraform init
+
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan -input=false
+
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve -input=false
