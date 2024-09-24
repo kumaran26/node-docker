@@ -47,7 +47,7 @@ jobs:
       run: docker tag node-app-action:1.0 europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app-${{ github.run_attempt }}
 
     - name: Docker Push
-      run: docker push europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app
+      run: docker push europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app-${{ github.run_attempt }}
 
     - name: Terraform Init
       run: terraform init
