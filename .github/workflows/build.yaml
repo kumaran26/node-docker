@@ -44,7 +44,7 @@ jobs:
       run: docker buildx build --platform linux/amd64 -t node-app-action:1.0 .
 
     - name: Docker Tag
-      run: docker tag node-app-action:1.0 europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app
+      run: docker tag node-app-action:1.0 europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app-${{ github.run_attempt }}
 
     - name: Docker Push
       run: docker push europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app
