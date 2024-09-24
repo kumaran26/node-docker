@@ -2,7 +2,7 @@ name: github action demo
 
 on: 
   push:
-    branches:
+    #branches:
     #- 'master'
 
 permissions:
