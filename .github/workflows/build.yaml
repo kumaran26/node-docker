@@ -54,6 +54,7 @@ jobs:
       uses: google-github-actions/deploy-cloudrun@v2
       with:
         service: node-app-new
+        flags: '--port=5004 --allow-unauthenticated'
         image: europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-hello:${{github.sha}}
 
     - name: Terraform Init
