@@ -1,9 +1,9 @@
 name: github action demo
 
-on: [pull_request]
-  #push:
-    #branches:
-    #- 'master'
+on: #[pull_request]
+  push:
+    branches:
+    - 'master'
 
 permissions:
   contents: read
@@ -44,10 +44,16 @@ jobs:
       run: docker buildx build --platform linux/amd64 -t node-app-action:1.0 .
 
     - name: Docker Tag
-      run: docker tag node-app-action:1.0 europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app-${{ github.run_id }}-${{ github.run_attempt }}
+      run: docker tag node-app-action:1.0 europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-hello:${{github.sha}}
 
     - name: Docker Push
-      run: docker push europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app-${{ github.run_id }}-${{ github.run_attempt }}
+      run: docker push europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-hello:${{github.sha}}
+
+    - name: Deploy to cloudrun
+      id: deploy
+      uses: google-github-actions/deploy-cloudrun@v0
+      with:
+        image: europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-hello:${{github.sha}}
 
     - name: Terraform Init
       run: terraform init
