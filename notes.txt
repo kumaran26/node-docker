@@ -1,1 +1,27 @@
 ${{ github.run_id }}-${{ github.run_attempt }}
+
+sudo chown -R $USER ./google-cloud-sdk
+
+sudo n stable 
+sudo npm install -g n 
+sudo npm cache clean -f
+
+sudo ./install.sh 
+
+sudo mv terraform /usr/local/bin
+mv terraform /usr/local/bin
+brew install hashicorp/tap/terraform
+
+sudo chmod +x install.sh
+
+source ./completion.zsh.inc  
+source ./path.zsh.inc 
+source './path.bash.inc' 
+source ./path.bash.inc  
+source ~/.zshrc 
+
+brew install --cask google-cloud-sdk
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+
+xcode-select --install
+sudo xcode-select -s /Library/Developer/CommandLineTools/
