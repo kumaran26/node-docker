@@ -1,3 +1,19 @@
+docker images
+docker login gcr.io
+docker run -p 3000:3000 node-app:1.0
+docker run -d -p 5000:80 nginx   
+docker pull nginx:latest
+sudo chown -R $USER ./google-cloud-sdk 
+docker push europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app-hello
+docker tag node-app-hello europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app-hello
+docker push europe-west4-docker.pkg.dev/my-react-project-97ea7/docker-cloud/node-app-hello  
+gcloud auth configure-docker europe-west4-docker.pkg.dev
+docker push gcr.io/my-react-project-97ea7/node-app
+docker push node-app:1.0
+docker push gcr.io/my-react-project-97ea7/node-app
+gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-west3-docker.pkg.dev
+gcloud auth list
+
 ${{ github.run_id }}-${{ github.run_attempt }}
 
 sudo chown -R $USER ./google-cloud-sdk
@@ -25,3 +41,24 @@ source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.
 
 xcode-select --install
 sudo xcode-select -s /Library/Developer/CommandLineTools/
+
+
+
+
+
+
+gcloud iam workload-identity-pools providers create-oidc "my-provider" \
+  --project="${PROJECT_ID}" \
+  --location="global" \
+  --workload-identity-pool="my-pool" \
+  --display-name="Demo provider" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.aud=assertion.aud" \
+  --issuer-uri="https://token.actions.githubusercontent.com"
+
+  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository"
+
+
+  gcloud iam service-accounts add-iam-policy-binding "git-wif-new-service@my-react-project-97ea7.iam.gserviceaccount.com" \
+  --project="my-react-project-97ea7" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/projects/71512088213/locations/global/workloadIdentityPools/git-wif-new-pool/attribute.repository/kumaran26/node-docker"
